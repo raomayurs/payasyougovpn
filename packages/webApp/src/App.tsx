@@ -5,13 +5,14 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UsageHistory from './pages/UsageHistory';
 import { CognitoClient } from './utils/CognitoClient';
+import * as cognitoConfig from '../config/cognito.json';
 
 
 const Main = () => {
-  const userPoolId = "eu-west-2_1YfzVBHg0";
-  const clientId = "2o1gk3948sfv18q8j2b9f7ddd9";
-  const identityPoolId = "eu-west-2:3ba62f93-9659-4b75-9965-e2f1d2bc6fbe";
-  const region = "eu-west-2";
+  const userPoolId = cognitoConfig.userPoolId;
+  const clientId = cognitoConfig.clientId;
+  const identityPoolId = cognitoConfig.identityPoolId;
+  const region = cognitoConfig.region;
   const cognitoClient = new CognitoClient(userPoolId, identityPoolId, clientId, region);
   return (
     <Router>
