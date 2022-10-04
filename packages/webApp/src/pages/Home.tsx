@@ -187,7 +187,7 @@ const HomePageTabs = (props: {region: string, connectionDetails?: ConnectionDeta
 const HomePageLayout = (props: {region: string, isConnectionDetailsLoading: boolean, connectionDetails?: ConnectionDetails, navigate: any, setConnectionDetails: any, setTab: any}) => {
     return (
         props.isConnectionDetailsLoading === true
-        ? <div>Checking Connection details...</div>
+        ? <div>Checking for open connections...</div>
         : <HomePageTabs
             connectionDetails={props.connectionDetails}
             navigate={props.navigate}
