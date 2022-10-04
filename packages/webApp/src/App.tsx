@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UsageHistory from './pages/UsageHistory';
 import { CognitoClient } from './utils/CognitoClient';
-import * as cognitoConfig from '../config/cognito.json';
+import { cognitoConfig } from './config/cognito';
 
 
 const Main = () => {
