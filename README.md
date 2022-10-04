@@ -7,7 +7,7 @@ This is a monorepo with the following packages:
 * infrastructure - CDK code to deploy the service and webapp to an aws account
 
 ## Steps to deploy to any AWS account
-* Modify the file `packages/infrastructure/app.ts` and set the `accountId` and `region` where the resources have to be deployed
+* Set the `accountId` and `region`in the config file `packages/infrastructure/config/deployment.json`, where the resources have to be deployed
 * Execute `npm run deployInfrastructure` to deploy the required stacks to the aws account. In the CloudFormation console of the AWS account in the provided region, you can see the progress of the stack deployments. Any failures can be troubleshooted by lookin at the logs in the cloudformation console.
 * When successful, you should have 3 stacks deployed:
     * PayAsYouGoVPNBaseStack - Consists of the base resources like the CodeCommit repo
