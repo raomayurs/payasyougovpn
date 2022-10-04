@@ -17,7 +17,7 @@ const Main = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home cognitoClient={cognitoClient}/>}></Route>
+        <Route path='/' element={<Home region={region} cognitoClient={cognitoClient}/>}></Route>
         <Route path='/login' element={<Login cognitoClient={cognitoClient}/>}></Route>
         <Route path='/register' element={<Register cognitoClient={cognitoClient}/>}></Route>
         <Route path='/home' element={<Home region={region} cognitoClient={cognitoClient}/>}></Route>
