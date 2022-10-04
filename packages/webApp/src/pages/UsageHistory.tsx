@@ -165,54 +165,6 @@ class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState>
                     ]
                 }
             >
-                {/* {
-                    regions.length > 0
-                    ?regions.map((region) => {
-                        const rows = this.state.vpnSessions[region];
-                        return (
-                            <div>
-                                <div>
-                                    <label className="col-sm-3 col-form-label">Region: </label>
-                                    <label className="col-sm-3 col-form-label">{region}</label>
-                                </div>
-                                <Table striped bordered hover>
-                                    <thead>
-                                        <tr>
-                                            <th>Instance Type</th>
-                                            <th>Start time</th>
-                                            <th>Stop time</th>
-                                            <th>Cost per hour</th>
-                                            <th>Usage in hours</th>
-                                            <th>Cost</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            rows.map((vpnSession, index) => {
-                                                return (
-                                                    <tr>
-                                                        <td>{vpnSession.instanceType}</td>
-                                                        <td>{vpnSession.launchTime}</td>
-                                                        <td>{vpnSession.stopTime}</td>
-                                                        <td>{vpnSession.costPerHour}</td>
-                                                        <td>{vpnSession.totalTimeUsed/3600000}</td>
-                                                        <td>{vpnSession.costOfSession}</td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                        
-                                    </tbody>
-                                </Table>
-                                <div>
-                                    <label className="col-sm-3 col-form-label">Total for region: </label>
-                                    <label className="col-sm-3 col-form-label">{this.state.totalsPerRegion[region]}</label>
-                                </div>
-                            </div>
-                        )
-                    })
-                    : <div>No VPN Connections</div>
-                } */}
                 <UsageHistoryLayout
                     regions={regions}
                     isVpnSessionsLoading={this.state.isVpnSessionsLoading}

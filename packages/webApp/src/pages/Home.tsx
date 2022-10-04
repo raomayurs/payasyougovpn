@@ -269,11 +269,6 @@ class Home extends React.Component<HomeProps, HomeState> {
                     ]
                 }
             >
-                {/* {
-                    this.state.connectionDetails?.connectionId != null
-                        ? <StopConnectionTab region={this.props.region} switchTab={() => this.setTab("viewConnection")} navigate={this.props.navigate} connectionDetails={this.state.connectionDetails} invalidateConnectionDetails={() => this.setConnectionDetails()}/>
-                        : <StartConnectionTab region={this.props.region} switchTab={() => this.setTab("viewConnection")} navigate={this.props.navigate} setConnectionDetails={(connectionDetails: ConnectionDetails) => this.setConnectionDetails(connectionDetails)}/>
-                } */}
                 <HomePageLayout
                     region={this.props.region}
                     connectionDetails={this.state.connectionDetails}
