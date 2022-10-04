@@ -15,7 +15,8 @@ export type UsageHistoryState = {
     vpnSessions: VPNSessions,
     loginRequired: boolean,
     totalsPerRegion: {[key: string]: number},
-    total: number
+    total: number,
+    isVpnSessionsLoading: boolean
 };
 
 const getRegion = (awsRegion: string) => {
@@ -28,6 +29,70 @@ const getRegion = (awsRegion: string) => {
     return REGIONS_TO_AWS_REGIONS_MAP[awsRegion];
 }
 
+const UsageHistoryData = (props: { regions: string[], vpnSessions: VPNSessions, totalsPerRegion: {[key: string]: number} }) => {
+    const regions = Object.keys(props.vpnSessions); 
+    return regions.length > 0
+        ?<div>{regions.map((region) => {
+            const rows = props.vpnSessions[region];
+            return (
+                <div>
+                    <div>
+                        <label className="col-sm-3 col-form-label">Region: </label>
+                        <label className="col-sm-3 col-form-label">{region}</label>
+                    </div>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Instance Type</th>
+                                <th>Start time</th>
+                                <th>Stop time</th>
+                                <th>Cost per hour</th>
+                                <th>Usage in hours</th>
+                                <th>Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                rows.map((vpnSession, index) => {
+                                    return (
+                                        <tr>
+                                            <td>{vpnSession.instanceType}</td>
+                                            <td>{vpnSession.launchTime}</td>
+                                            <td>{vpnSession.stopTime}</td>
+                                            <td>{vpnSession.costPerHour}</td>
+                                            <td>{vpnSession.totalTimeUsed/3600000}</td>
+                                            <td>{vpnSession.costOfSession}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                            
+                        </tbody>
+                    </Table>
+                    <div>
+                        <label className="col-sm-3 col-form-label">Total for region: </label>
+                        <label className="col-sm-3 col-form-label">{props.totalsPerRegion[region]}</label>
+                    </div>
+                </div>
+            )
+        })}</div>
+        : <div>No VPN Connections</div>
+    
+    
+}
+
+const UsageHistoryLayout = (props: { regions: string[], isVpnSessionsLoading: boolean, vpnSessions: VPNSessions, totalsPerRegion: {[key: string]: number} }) => {
+    if (props.isVpnSessionsLoading) {
+        return <div>Querying for past Usage History...</div>
+    } else {
+        return <UsageHistoryData
+            regions={props.regions}
+            vpnSessions={props.vpnSessions}
+            totalsPerRegion={props.totalsPerRegion}
+        />
+    }
+}
+
 
 
 class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState> {
@@ -37,7 +102,8 @@ class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState>
             vpnSessions: {},
             loginRequired: true,
             totalsPerRegion: {},
-            total: 0
+            total: 0,
+            isVpnSessionsLoading: true
         }
     }
     getTotals(vpnSessions: VPNSessions) {
@@ -66,9 +132,9 @@ class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState>
                 if (vpnSessions != null) {
                     const { totalsPerRegion, total } = this.getTotals(vpnSessions);
                     console.log({ totalsPerRegion, total });
-                    this.setState({vpnSessions, loginRequired: false, totalsPerRegion, total })
+                    this.setState({vpnSessions, loginRequired: false, totalsPerRegion, total, isVpnSessionsLoading: false })
                 } else {
-                    this.setState({vpnSessions, loginRequired: false })
+                    this.setState({vpnSessions, loginRequired: false, isVpnSessionsLoading: false })
                 }
                 
             } else {
@@ -99,7 +165,7 @@ class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState>
                     ]
                 }
             >
-                {
+                {/* {
                     regions.length > 0
                     ?regions.map((region) => {
                         const rows = this.state.vpnSessions[region];
@@ -146,7 +212,13 @@ class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState>
                         )
                     })
                     : <div>No VPN Connections</div>
-                }
+                } */}
+                <UsageHistoryLayout
+                    regions={regions}
+                    isVpnSessionsLoading={this.state.isVpnSessionsLoading}
+                    totalsPerRegion={this.state.totalsPerRegion}
+                    vpnSessions={this.state.vpnSessions}
+                />
                 {
                     regions.length > 0
                     ? <div>

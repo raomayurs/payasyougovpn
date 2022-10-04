@@ -27,6 +27,7 @@ export type HomeState = {
     isStopButtonDisabled: boolean,
     connectionDetails?: ConnectionDetails;
     loginRequired: boolean;
+    isConnectionDetailsLoading: boolean;
 };
 
 const REGIONS = ["India", "United Kingdom", "United States", "Japan"];
@@ -168,6 +169,35 @@ const StopConnectionTab = (props: { region: string, switchTab: any, navigate: an
     );
 };
 
+const HomePageTabs = (props: {region: string, connectionDetails?: ConnectionDetails, navigate: any, setConnectionDetails: any, setTab: any}) => {
+    if (props.connectionDetails?.connectionId != null) {
+        return (
+            <StopConnectionTab region={props.region} switchTab={() => props.setTab("viewConnection")} navigate={props.navigate} connectionDetails={props.connectionDetails} invalidateConnectionDetails={() => props.setConnectionDetails()}/>
+        )
+    } else {
+        return (<StartConnectionTab 
+            region={props.region}
+            switchTab={() => props.setTab("viewConnection")}
+            navigate={props.navigate}
+            setConnectionDetails={(connectionDetails: ConnectionDetails) => {console.log()}}
+        />)
+    }
+};
+
+const HomePageLayout = (props: {region: string, isConnectionDetailsLoading: boolean, connectionDetails?: ConnectionDetails, navigate: any, setConnectionDetails: any, setTab: any}) => {
+    return (
+        props.isConnectionDetailsLoading === true
+        ? <div>Checking Connection details...</div>
+        : <HomePageTabs
+            connectionDetails={props.connectionDetails}
+            navigate={props.navigate}
+            setConnectionDetails={props.setConnectionDetails}
+            setTab={props.setTab}
+            region={props.region}
+            />
+    )
+};
+
 class Home extends React.Component<HomeProps, HomeState> {
     constructor(props: HomeProps) {
         super(props);
@@ -176,7 +206,8 @@ class Home extends React.Component<HomeProps, HomeState> {
             isSubmitButtonDisabled: false,
             currentTab: "startConnection",
             isStopButtonDisabled: false,
-            loginRequired: true
+            loginRequired: true,
+            isConnectionDetailsLoading: true
         };
     }
 
@@ -209,9 +240,9 @@ class Home extends React.Component<HomeProps, HomeState> {
             if (lambdaClient) {
                 const connectionDetails = await getServerDetails(lambdaClient, userId);
                 if (connectionDetails != null) {
-                    this.setState({connectionDetails, loginRequired: false })
+                    this.setState({connectionDetails, loginRequired: false, isConnectionDetailsLoading: false })
                 } else {
-                    this.setState({connectionDetails, loginRequired: false })
+                    this.setState({connectionDetails, loginRequired: false, isConnectionDetailsLoading: false })
                 }
                 
             } else {
@@ -238,11 +269,19 @@ class Home extends React.Component<HomeProps, HomeState> {
                     ]
                 }
             >
-                {
+                {/* {
                     this.state.connectionDetails?.connectionId != null
                         ? <StopConnectionTab region={this.props.region} switchTab={() => this.setTab("viewConnection")} navigate={this.props.navigate} connectionDetails={this.state.connectionDetails} invalidateConnectionDetails={() => this.setConnectionDetails()}/>
                         : <StartConnectionTab region={this.props.region} switchTab={() => this.setTab("viewConnection")} navigate={this.props.navigate} setConnectionDetails={(connectionDetails: ConnectionDetails) => this.setConnectionDetails(connectionDetails)}/>
-                }
+                } */}
+                <HomePageLayout
+                    region={this.props.region}
+                    connectionDetails={this.state.connectionDetails}
+                    navigate={this.props.navigate}
+                    setConnectionDetails={this.setConnectionDetails.bind(this)}
+                    setTab={this.setTab.bind(this)}
+                    isConnectionDetailsLoading={this.state.isConnectionDetailsLoading}
+                />
             </Layout>
         );
     }
