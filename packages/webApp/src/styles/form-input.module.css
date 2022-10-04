@@ -1,0 +1,14 @@
+.formLabel {
+    text-decoration: solid;
+}
+.errorToolTip {
+    color: red;
+    font-size: 0.8em;
+}
+.successToolTip {
+    color: green;
+    font-size: 0.8em;
+}
+.textRow {
+    padding: 10%;
+}
