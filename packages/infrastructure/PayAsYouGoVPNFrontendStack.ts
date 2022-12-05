@@ -4,6 +4,7 @@ import { CfnIdentityPool, CfnIdentityPoolRoleAttachment, UserPool } from "aws-cd
 import { Effect, FederatedPrincipal, ManagedPolicy, PolicyDocument, PolicyStatement, Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { Construct } from 'constructs';
 import * as fs from 'fs';
+import { getBuildSpec } from './getBuildSpec';
 
 export interface PayAsYouGoVPNFrontendStackProps extends StackProps {
     repositoryArn: string;
@@ -13,8 +14,8 @@ export interface PayAsYouGoVPNFrontendStackProps extends StackProps {
 export class PayAsYouGoVPNFrontendStack extends NestedStack {
     constructor(scope: Construct, id: string, props: PayAsYouGoVPNFrontendStackProps) {
         super(scope, id, props);
-        this.createCognitoResources();
-        this.createAmplifyApp(props.repositoryArn, props.repositoryCloneUrl);
+        const { clientId, identityPoolId, userPoolId } = this.createCognitoResources();
+        this.createAmplifyApp(props.repositoryArn, props.repositoryCloneUrl, userPoolId, clientId, identityPoolId);
     }
 
     private createCognitoResources() {
@@ -95,9 +96,15 @@ export class PayAsYouGoVPNFrontendStack extends NestedStack {
                 unauthenticated: unauthRole.roleArn
             }
         });
+
+        return {
+            userPoolId: userPool.userPoolId,
+            clientId: userPoolClient.userPoolClientId,
+            identityPoolId: Fn.ref("PayAsYouGoVPNIdentityPool")
+        };
     }
 
-    private createAmplifyApp(repositoryArn: string, repositoryCloneUrl: string) {
+    private createAmplifyApp(repositoryArn: string, repositoryCloneUrl: string, userPoolId: string, clientId: string, identityPoolId: string) {
         const amplifyRole = new Role(this, "AmplifyRole", {
             roleName: "AmplifyRole",
             assumedBy: new ServicePrincipal("amplify"),
@@ -134,7 +141,8 @@ export class PayAsYouGoVPNFrontendStack extends NestedStack {
         new CfnApp(this, "PayAsYouGoVPNAmplifyApp", {
             name: "PayAsYouGoVPNAmplifyApp",
             repository: repositoryCloneUrl,
-            buildSpec: fs.readFileSync("buildSpec.yaml").toString(),
+            // buildSpec: fs.readFileSync("buildSpec.yaml").toString(),
+            buildSpec: getBuildSpec(userPoolId, identityPoolId, clientId, this.region),
             iamServiceRole: amplifyRole.roleArn,
         });
 

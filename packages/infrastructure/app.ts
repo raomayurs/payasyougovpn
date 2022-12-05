@@ -1,6 +1,6 @@
 import { App } from "aws-cdk-lib";
 import { PayAsYouGoVPNBaseStack } from "./PayAsYouGoVPNBaseStack";
-import * as depoymentConfig from "./config/depoymentConfig.json";
+import { config as depoymentConfig } from "./config/deployment";
 
 const app = new App();
 

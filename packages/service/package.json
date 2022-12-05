@@ -11,7 +11,7 @@
       "stop-all-idle-servers": "ts-node stop-all-idle-servers.ts",
       "get-vpn-sessions": "ts-node get-vpn-sessions.ts",
       "build": "npm install && rm -rf dist && tsc",
-      "copySrc": "npm prune --production && rm -rf build && mkdir -p build/payasyougovpnservice && cp -r node_modules dist/lib/* build/payasyougovpnservice",
+      "copySrc": "npm prune --production && rm -rf build && mkdir -p build/payasyougovpnservice && cp -r node_modules dist/* build/payasyougovpnservice",
       "createLambdaZip": "cd build/payasyougovpnservice && zip ../lambda.zip -r .",
       "release": "npm run build && npm run copySrc && npm run createLambdaZip"
     },

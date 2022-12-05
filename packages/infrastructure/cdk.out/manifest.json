@@ -1,0 +1,202 @@
+{
+  "version": "21.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "PayAsYouGoVPNBaseStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "PayAsYouGoVPNBaseStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "PayAsYouGoVPNBaseStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://719694030497/eu-west-2",
+      "properties": {
+        "templateFile": "PayAsYouGoVPNBaseStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::719694030497:role/cdk-hnb659fds-deploy-role-719694030497-eu-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::719694030497:role/cdk-hnb659fds-cfn-exec-role-719694030497-eu-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-719694030497-eu-west-2/374f86bef98c491edba4ba81fa0a565957f4807ac8b26fd561ae5a1118feaacc.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "PayAsYouGoVPNBaseStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::719694030497:role/cdk-hnb659fds-lookup-role-719694030497-eu-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "PayAsYouGoVPNBaseStack.assets"
+      ],
+      "metadata": {
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPN/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPN6F43EE69"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/PayAsYouGoVPNLambdaExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNLambdaExecutionRole96C8EF83"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/StartVPNServer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StartVPNServer09F17244"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/StopVPNServer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StopVPNServerFE11C646"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/StopAllIdleServers/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StopAllIdleServers7F122012"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/GetServerDetails/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetServerDetailsE35C5BA7"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/GetVPNSessions/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetVPNSessions0CEAB784"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/LambdaAccessManagedPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaAccessManagedPolicy47C438D5"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNServiceStack.NestedStack/PayAsYouGoVPNServiceStack.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNServiceStackNestedStackPayAsYouGoVPNServiceStackNestedStackResource8F7218D0"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNUserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNUserPoolCD9ABC71"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNUserPool/PayAsYouGoVPNUserPoolClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNUserPoolPayAsYouGoVPNUserPoolClient27D08FF0"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNIdentityPool": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNIdentityPool"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNIdPoolAuthRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNIdPoolAuthRole4798AC67"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNIdPoolUnauthRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNIdPoolUnauthRole9778B79E"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNIdentityPoolRoleAttachment": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNIdentityPoolRoleAttachment"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/AmplifyRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AmplifyRole7A8FD9BC"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNAmplifyApp": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNAmplifyApp"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/PayAsYouGoVPNAmplifyBranch": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNAmplifyBranch"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/reference-to-PayAsYouGoVPNBaseStackPayAsYouGoVPN8E5B3DEDArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoPayAsYouGoVPNBaseStackPayAsYouGoVPN8E5B3DEDArn"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack/reference-to-PayAsYouGoVPNBaseStackPayAsYouGoVPN8E5B3DEDCloneUrlHttp": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoPayAsYouGoVPNBaseStackPayAsYouGoVPN8E5B3DEDCloneUrlHttp"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/PayAsYouGoVPNFrontendStack.NestedStack/PayAsYouGoVPNFrontendStack.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PayAsYouGoVPNFrontendStackNestedStackPayAsYouGoVPNFrontendStackNestedStackResource52E6118D"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/PayAsYouGoVPNBaseStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "PayAsYouGoVPNBaseStack"
+    }
+  }
+}
