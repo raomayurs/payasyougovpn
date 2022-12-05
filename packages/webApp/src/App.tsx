@@ -5,14 +5,14 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UsageHistory from './pages/UsageHistory';
 import { CognitoClient } from './utils/CognitoClient';
-import { cognitoConfig } from './config/cognito';
+//import { cognitoConfig } from './config/cognito';
 
 
 const Main = () => {
-  const userPoolId = cognitoConfig.userPoolId;
-  const clientId = cognitoConfig.clientId;
-  const identityPoolId = cognitoConfig.identityPoolId;
-  const region = cognitoConfig.region;
+  const userPoolId = process.env.REACT_APP_USER_POOL_ID as string;
+  const clientId = process.env.REACT_APP_CLIENT_ID as string;
+  const identityPoolId = process.env.REACT_APP_IDENTITY_POOL_ID as string;
+  const region = process.env.REACT_APP_REGION as string;
   const cognitoClient = new CognitoClient(userPoolId, identityPoolId, clientId, region);
   return (
     <Router>

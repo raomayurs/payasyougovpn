@@ -13,8 +13,6 @@ This is a monorepo with the following packages:
     * PayAsYouGoVPNBaseStack - Consists of the base resources like the CodeCommit repo
     * PayAsYouGoVPNFrontendStack - Frontend resources required to host website
     * PayAsYouGoVPNServiceStack - Backend resources like lambda functions
-* The Web app requires the Cognito Userpool and Identity pool details to be able to function successfully. Please update the `userPoolId`, `clientId` and `identityPoolId` in the config file `packages/webApp/src/config/cognito.ts`. These can be found from the Cognito console for the provided region
-* Commit the changes and push to the branch master `git commit -a -m "Updated cognito config" && git push origin master -f`
 * Open the amplify console for the provided region. Open the `PayAsYouGoVPNAmplifyApp` amplify app
 * Choose `Run Build` if the build has not already started automatically. When successful, this step should build and deploy the web app to an amplify endpoint
 * Once successful copy the amplify website endpoint and open it to test that it works.
@@ -22,6 +20,8 @@ This is a monorepo with the following packages:
 * Then login to enjoy your personal VPN service
 
 ## Development
+
+
 
 The code is divided as follows:
 
@@ -32,7 +32,7 @@ The code is divided as follows:
 Make changes to the relevant subpackage by need
 
 ## Testing web app locally
-
+* The Web app requires the Cognito Userpool and Identity pool details to be able to function successfully. Please update the `userPoolId`, `clientId` and `identityPoolId` in the env file `packages/webApp/.env.development`. These can be found from the Cognito console for the provided region
 * Run `npm run startLocalWebApp` to start a local web server on port 3000. Can help debug when developing the web app.
 
 ## Website usage
