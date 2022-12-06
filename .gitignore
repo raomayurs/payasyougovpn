@@ -1,4 +1,6 @@
 build
+
+cdk.out
 node_modules
 code.zip
 codeZip

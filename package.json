@@ -6,8 +6,9 @@
     "buildWebApp": "rm -rf build && cd packages/webApp && npm run build && cp -r build ../..",
     "deployInfrastructure": "npm run createCodeZip && npm run createLambdaZip && cd packages/infrastructure && npm run release",
     "createCodeZip": "rm -rf codeZip code.zip && mkdir codeZip && npm run copyCode && cd codeZip && zip -r ../code.zip . && cd ..",
-    "copyCode": "mkdir -p codeZip/packages/infrastructure && cp -r packages/infrastructure/*.ts packages/infrastructure/*.json codeZip/packages/infrastructure && mkdir -p codeZip/packages/service && cp -r packages/service/lib packages/service/*.json codeZip/packages/service && mkdir -p codeZip/packages/webApp && cp -r packages/webApp/public packages/webApp/src packages/webApp/*.json codeZip/packages/webApp && cp *.json codeZip",
-    "startLocalWebApp": "cd packages/webApp && npm i && npm run start"
+    "copyCode": "mkdir -p codeZip/packages/infrastructure && cp -rp packages/infrastructure/*.ts packages/infrastructure/*.json codeZip/packages/infrastructure && mkdir -p codeZip/packages/service && cp -rp packages/service/lib packages/service/*.json codeZip/packages/service && mkdir -p codeZip/packages/webApp && cp -rp packages/webApp/public packages/webApp/src packages/webApp/*.json packages/webApp/bin codeZip/packages/webApp && cp *.json codeZip",
+    "startLocalWebApp": "cd packages/webApp && npm i && npm run start",
+    "createEnvironmentFile": "cd packages/webApp && npm run createEnvironmentFile"
   },
   "devDependencies": {
 
