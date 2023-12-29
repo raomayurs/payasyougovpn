@@ -3,8 +3,9 @@ import Layout from "../components/Layout";
 import { getLambdaClient } from "../utils/LambdaUtil";
 import Table from 'react-bootstrap/Table';
 import { CognitoClient } from "../utils/CognitoClient";
-import { getVpnSessions, VPNSession, VPNSessions } from "../utils/VpnConnection";
+import { VPNSession, VPNSessions } from "../utils/VpnConnection";
 import { withRouter } from "../components/WithRouter";
+import { getServiceClient } from "../utils/getServiceClient";
 
 export type UsageHistoryProps = {
     navigate: any;
@@ -125,10 +126,12 @@ class UsageHistory extends React.Component<UsageHistoryProps, UsageHistoryState>
         if (userId == null) {
             this.setState({loginRequired: true })
         } else {
-            const lambdaClient = getLambdaClient(this.props.region);
+            // const lambdaClient = getLambdaClient(this.props.region);
+            const serviceClient = getServiceClient(this.props.region);
             
-            if (lambdaClient) {
-                const vpnSessions = await getVpnSessions(lambdaClient, userId) as VPNSessions;
+            // if (lambdaClient) {
+            if (serviceClient) {
+                const vpnSessions = await serviceClient.getVPNSessions(userId) as VPNSessions;
                 if (vpnSessions != null) {
                     const { totalsPerRegion, total } = this.getTotals(vpnSessions);
                     console.log({ totalsPerRegion, total });

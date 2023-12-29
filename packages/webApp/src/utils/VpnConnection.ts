@@ -23,7 +23,7 @@ export type VPNSessions = {
     [key: string]: VPNSession[];
 };
 
-const getAWSRegion = (country: string) => {
+export const getAWSRegion = (country: string) => {
     const REGIONS_MAP = {
         "India": "ap-south-1",
         "United Kingdom": "eu-west-2",

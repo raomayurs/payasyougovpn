@@ -44,7 +44,7 @@ export const setupVPNServer = async (instanceDetails: InstanceDetails) => {
 const waitForServerToStart = async (hostname: string, privateKey: string) => {
     const startTime = Date.now();
     let isConnected = false;
-    while (Date.now() -  startTime < 45000 && !isConnected) {
+    while (Date.now() -  startTime < 55000 && !isConnected) {
         try {
             await sshConnect(hostname, privateKey);
             const result = await ssh.execCommand(`sudo /usr/local/openvpn_as/scripts/sacli VPNSummary`);

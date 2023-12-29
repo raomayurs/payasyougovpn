@@ -3,9 +3,10 @@ import Layout from "../components/Layout";
 import { withRouter } from "../components/WithRouter";
 import { DropdownRow, FormTable } from "../components/FormInput";
 import styles from "../styles/form-input.module.css";
-import { ConnectionDetails, getServerDetails, startVPNConnection, stopVPNConnection } from "../utils/VpnConnection"
-import { getLambdaClient } from "../utils/LambdaUtil";
+import { ConnectionDetails } from "../utils/VpnConnection"
+// import { getLambdaClient } from "../utils/LambdaUtil";
 import { CognitoClient } from "../utils/CognitoClient";
+import { getServiceClient } from "../utils/getServiceClient";
 
 export type HomeProps = {
     cognitoClient: CognitoClient;
@@ -57,12 +58,14 @@ const StartConnectionTab = (props: {
     const handleStartConnection = async () => { 
         try {
             const userId = sessionStorage.getItem("userId") as string;
-            const lambdaClient = getLambdaClient(props.region);
-            if (!lambdaClient) {
+            //const lambdaClient = getLambdaClient(props.region);
+            const serviceClient = getServiceClient(props.region);
+            // if (!lambdaClient) {
+            if (!serviceClient) {
                 props.navigate("/login");
             } else {
                 setIsSubmitButtonDisabled(true);
-                const connectionDetails = await startVPNConnection(lambdaClient, region, userId);
+                const connectionDetails = await serviceClient.startServer(region, userId);
                 props.setConnectionDetails(connectionDetails);
                 setIsSubmitButtonDisabled(false);
                 props.switchTab();
@@ -107,12 +110,14 @@ const StopConnectionTab = (props: { region: string, switchTab: any, navigate: an
     const handleStopConnection = async () => {
         try {
             const userId = sessionStorage.getItem("userId") as string;
-            const lambdaClient = getLambdaClient(props.region);
-            if (!lambdaClient) {
+            // const lambdaClient = getLambdaClient(props.region);
+            const serviceClient = getServiceClient(props.region);
+            // if (!lambdaClient) {
+            if (!serviceClient) {
                 props.navigate("/login");
             } else {
                 setIsSubmitButtonDisabled(true);
-                await stopVPNConnection(lambdaClient, userId, props.connectionDetails.connectionId, props.connectionDetails.vpnServerDetails.region);
+                await serviceClient.stopServer(userId, props.connectionDetails.connectionId, props.connectionDetails.vpnServerDetails.region);
                 props.invalidateConnectionDetails();
                 setIsSubmitButtonDisabled(false);
                 props.switchTab();
@@ -235,10 +240,12 @@ class Home extends React.Component<HomeProps, HomeState> {
         if (userId == null) {
             this.setState({loginRequired: true })
         } else {
-            const lambdaClient = getLambdaClient(this.props.region);
+            // const lambdaClient = getLambdaClient(this.props.region);
+            const serviceClient = getServiceClient(this.props.region)
             
-            if (lambdaClient) {
-                const connectionDetails = await getServerDetails(lambdaClient, userId);
+            // if (lambdaClient) {
+            if (serviceClient) {
+                const connectionDetails = await serviceClient.getServerDetails(userId);
                 if (connectionDetails != null) {
                     this.setState({connectionDetails, loginRequired: false, isConnectionDetailsLoading: false })
                 } else {

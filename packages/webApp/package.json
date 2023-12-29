@@ -31,7 +31,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm i && react-scripts build",
+    "clean": "rm -rf build",
+    "build": "npm run clean && npm i && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "rm -rf build && npm run build && cd build && zip -r ../frontend.zip .",

@@ -1,7 +1,8 @@
 {
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": false
   },
   "exclude": [ "node_modules", "start-server.ts", "stop-server.ts", "stop-all-idle-servers.ts", "get-server-details.ts"]
 }
